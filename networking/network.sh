@@ -6,6 +6,7 @@ read -p "Which network interface? " ifcfg
 read -p "New IP Address? " ip
 read -p "New Subnet Mask? (CIDR Notation - No slash) " subnet
 read -p "Gateway IP? " gateway
+read -p "Search Domain? " domain
 read -p "First DNS Server IP? " dns1
 read -p "Second DNS Server IP? " dns2
 
@@ -25,6 +26,7 @@ ONBOOT=yes
 IPADDR=$ip
 PREFIX=$subnet
 GATEWAY=$gateway
+DOMAIN=$domain
 DNS1=$dns1
 DNS2=$dns2
 IPV6_PEERDNS=yes
