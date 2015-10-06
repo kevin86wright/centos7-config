@@ -81,7 +81,7 @@ echo $password | realm join --user=$user $domain
 
 # Configuring SSSD
 sed -i "s/use_fully_qualified_names/#use_fully_qualified_names/g" /etc/sssd/sssd.conf
-realm permit --groups linuxadmins linuxusers
+realm permit --groups linuxitadmins linuxusers
 echo $adgroup'  ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # Ask user to reboot the system
