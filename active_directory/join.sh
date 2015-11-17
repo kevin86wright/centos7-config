@@ -16,8 +16,9 @@ do
     echo
     read -p "Hostname (again): " hostname2
     echo
-    [ "$hostname1" = "$hostname2" ] && break
-    echo "Hostnames don't match. Please try again."
+    LEN=$(echo ${#hostname1})
+    [ "$hostname1" = "$hostname2" ] && [ $LEN -le 15 ] && break
+    echo "Hostnames don't match or is longer than 15 characters. Please try again."
   done
 else
   echo "Current Hostname:" $(hostname)
@@ -28,10 +29,11 @@ else
     echo
     read -p "New Hostname (again): " hostname2
     echo
-    if [[ "$hostname1" == "$hostname2" && "$hostname1" != "" ]]; then
+    LEN=$(echo ${#hostname1})
+    if [[ "$hostname1" == "$hostname2" && "$hostname1" != "" && $LEN -le 15 ]]; then
       break
     fi
-    echo "Hostnames don't match. Hostname also can't be blank. Please try again."
+    echo "Hostnames don't match. Hostname also can't be blank or longer than 15 characters. Please try again."
   done
 fi
 read -p "Domain: " domain
