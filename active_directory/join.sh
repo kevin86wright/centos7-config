@@ -38,14 +38,16 @@ else
 fi
 read -p "Domain: " domain
 read -p "Domain Controller FQDN: " dc
-read -p "Domain security group for sudo permissions? " adgroup
+read -p "Domain security group for sudo permissions? " sudoadgroup
+read -p "Domain security group for non-sudo permissions? " nonsudoadgroup
 read -p "Domain Username: " user
 read -p "Password: " -s password
 echo
 echo
 echo "Domain:" $domain
 echo "Domain Controller FQDN:" $dc
-echo "Domain security group for sudo: " $adgroup
+echo "Domain security group for sudo: " $sudoadgroup
+echo "Domain security group for non-sudo: " $nonsudoadgroup
 echo "User:" $user
 read -p "Are you sure the above is correct? (y/n): " answer
 if [ $answer = "y" ] || [ $answer = "Y" ]; then
@@ -83,8 +85,8 @@ echo $password | realm join --user=$user $domain
 
 # Configuring SSSD
 sed -i "s/use_fully_qualified_names/#use_fully_qualified_names/g" /etc/sssd/sssd.conf
-realm permit --groups $adgroup linuxusers
-echo %$adgroup'  ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+realm permit --groups $sudoadgroup $nonsudoadgroup
+echo %$sudoadgroup'  ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # Ask user to reboot the system
 read -p "Would you like to reboot the system? (y/n): " reboot
