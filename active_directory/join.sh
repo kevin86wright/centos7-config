@@ -85,6 +85,7 @@ echo $password | realm join --user=$user $domain
 
 # Configuring SSSD
 sed -i "s/use_fully_qualified_names/#use_fully_qualified_names/g" /etc/sssd/sssd.conf
+echo 'dyndns_update = false' >> /etc/sssd/sssd.conf
 realm permit --groups $sudoadgroup $nonsudoadgroup
 echo %$sudoadgroup'  ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
